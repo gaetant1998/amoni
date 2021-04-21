@@ -23,7 +23,7 @@ class Autoload
         
         foreach($racineLoaders as $racine) {
             if (file_exists($racine.$className.'.php')) {
-                require $racine.$className.'.php';
+                include_once $racine.$className.'.php';
                 $find = true;
                 break;
             } 
@@ -31,7 +31,7 @@ class Autoload
 
         if (!$find) {
             if (key_exists($className, $this->paths)) {
-                require $this->paths[$className].'.php';
+                include_once $this->paths[$className].'.php';
             } else {
                 foreach($racineLoaders as $racine) {
                     echo "<br>impossible de trouver la classe ".$racine.$className.'.php<br/>';
