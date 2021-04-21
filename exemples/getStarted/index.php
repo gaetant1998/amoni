@@ -8,3 +8,4 @@ $url = (isset($_GET['url']))? $_GET['url'] : '';
 
 $router = new Router(RACINE, $routes);
 $router->run($url);
+echo "ok";
