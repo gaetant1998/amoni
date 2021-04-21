@@ -4,16 +4,16 @@ use PDO;
 /**
  * 
  */
-class Manager 
+class Manager extends PDO
 {
     protected $pdo;
 
     public function __construct(array $db = [], $sgbd = 'mysql') {
 
-        $host = (isset($db['host']))? $db['host'] : DB['host'];
-        $dbname = (isset($db['dbname']))? $db['dbname'] : DB['dbname'];
-        $root = (isset($db['root']))? $db['root'] : DB['root'];
-        $password = (isset($db['password']))? $db['password'] : DB['password'];
+        $host = (isset($db['host']))? $db['host'] : "localhost";
+        $dbname = (isset($db['dbname']))? $db['dbname'] : "phpmyadmin";
+        $root = (isset($db['root']))? $db['root'] : "root";
+        $password = (isset($db['password']))? $db['password'] : "";
         $option = (isset($db['option']))? $db['option'] : null;
 
        $pdo = new PDOconnec($host, $dbname, $root, $password, $option); 
@@ -25,6 +25,21 @@ class Manager
        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
        $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
+
+    
+
+    public function get(string $table, $SQL = null, $select = '*') {
+        $sql = " select $select from $table ";
+
+        if ($SQL) {
+            $sql .= $SQL;
+        }
+
+        $q = $this->pdo->query($sql);
+        
+        return $q->fetch();
+    } 
+
 
     public function read(string $table, $SQL = null, $select = '*') {
         $sql = " select $select from $table ";
@@ -38,7 +53,7 @@ class Manager
         return $q->fetchAll();
     } 
 
-    public function create(string $table, array $vals) {
+    public function insert(string $table, array $vals) {
         $sql = " insert into $table ";
         $cols = " ( ";
         $values = " ( ";
@@ -62,6 +77,7 @@ class Manager
         $q = $this->pdo->prepare($sql);
         $q = $q->execute($vals);
 
+        return $q;
     }
 
     public function update(string $table, array $vals, $where = '0', $limit = '1') {
@@ -82,12 +98,16 @@ class Manager
         $q = $this->pdo->prepare($sql);
         $q = $q->execute($vals);
 
+        return $q;
+
     }
 
     public function delete(string $table, $where = '0', $limit = 1) {
         $sql = " delete from $table where $where limit $limit ";
 
         $q = $this->pdo->exec($sql);
+
+        return $q;
 
     }
 
