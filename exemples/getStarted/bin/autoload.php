@@ -5,7 +5,7 @@ use amoni\classes\Autoload;
 include LIB.'amoni'.DS.'classes'.DS.'Autoload.php';
 
 $src = [
-    LIB
+    LIB, RACINE, CONTROLER
 ];
 
 $psr_4 = [
