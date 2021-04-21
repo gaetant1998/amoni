@@ -4,26 +4,26 @@ use PDO;
 /**
  * 
  */
-class Manager extends PDO
+class Manager
 {
     protected $pdo;
 
     public function __construct(array $db = [], $sgbd = 'mysql') {
-
+        
         $host = (isset($db['host']))? $db['host'] : "localhost";
         $dbname = (isset($db['dbname']))? $db['dbname'] : "phpmyadmin";
         $root = (isset($db['root']))? $db['root'] : "root";
         $password = (isset($db['password']))? $db['password'] : "";
         $option = (isset($db['option']))? $db['option'] : null;
 
-       $pdo = new PDOconnec($host, $dbname, $root, $password, $option); 
+        $pdo = new PDOconnec($host, $dbname, $root, $password, $option); 
     
-       if ($sgbd == 'mysql') {
+        if ($sgbd == 'mysql') {
             $this->pdo = $pdo->mysql();
-       }
+        }
 
-       $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
-       $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
+        $this->pdo->setAttribute(PDO::ATTR_ERRMODE, PDO::ERRMODE_EXCEPTION);
+        $this->pdo->setAttribute(PDO::ATTR_DEFAULT_FETCH_MODE, PDO::FETCH_ASSOC);
     }
 
     
@@ -41,11 +41,15 @@ class Manager extends PDO
     } 
 
 
-    public function read(string $table, $SQL = null, $select = '*') {
+    public function read(string $table, $SQL = null, string $select = '*', int $limit = null, int $offset = 0) {
         $sql = " select $select from $table ";
 
         if ($SQL) {
             $sql .= $SQL;
+        }
+
+        if($limit) {
+            $sql .= " limit $limit offset $offset ";
         }
 
         $q = $this->pdo->query($sql);
