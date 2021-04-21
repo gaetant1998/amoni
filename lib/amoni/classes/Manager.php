@@ -28,7 +28,7 @@ class Manager
 
     
 
-    public function get(string $table, $SQL = null, $select = '*') {
+    public function get(string $table, $SQL = null, $select = '*'):array {
         $sql = " select $select from $table ";
 
         if ($SQL) {
@@ -41,7 +41,7 @@ class Manager
     } 
 
 
-    public function read(string $table, $SQL = null, string $select = '*', int $limit = null, int $offset = 0) {
+    public function read(string $table, $SQL = null, string $select = '*', int $limit = null, int $offset = 0):array {
         $sql = " select $select from $table ";
 
         if ($SQL) {
@@ -57,7 +57,7 @@ class Manager
         return $q->fetchAll();
     } 
 
-    public function insert(string $table, array $vals) {
+    public function insert(string $table, array $vals): bool {
         $sql = " insert into $table ";
         $cols = " ( ";
         $values = " ( ";
@@ -84,7 +84,7 @@ class Manager
         return $q;
     }
 
-    public function update(string $table, array $vals, $where = '0', $limit = '1') {
+    public function update(string $table, array $vals, $where = '0', $limit = '1'):bool {
         $sql = " update $table set ";
 
         $i = 0;
@@ -106,7 +106,7 @@ class Manager
 
     }
 
-    public function delete(string $table, $where = '0', $limit = 1) {
+    public function delete(string $table, $where = '0', $limit = 1): int {
         $sql = " delete from $table where $where limit $limit ";
 
         $q = $this->pdo->exec($sql);
