@@ -5,6 +5,10 @@ define('LIB', dirname(dirname(dirname(__DIR__))).DS.'lib'.DS); // c:\path\amoni\
 define('RACINE', dirname(__DIR__).DS);
 define('CONTROLER', RACINE.'controlers'.DS);
 define('VIEW', RACINE.'views'.DS);
+define('HOST', $_SERVER['HTTP_HOST']);
+define('RACINE_DOMAINE', 'http://'.HOST.'/github/amoni/');
+define('DOMAINE', RACINE_DOMAINE.'exemples/getStarted/');
+define('STYLE', RACINE_DOMAINE.'lib/amoni_js_css/style.css');
 
 include 'autoload.php'; // il contient le script qui va charger nos différentes classes automatiquement
 
