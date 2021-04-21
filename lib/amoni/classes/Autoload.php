@@ -7,10 +7,11 @@ namespace amoni\classes;
 class Autoload
 {
     protected $racineLoaders = null;
-    protected $psr_4;
-    public function __construct(array $racineLoaders, array $psr_4 = []) {
+    protected $paths;
+    
+    public function __construct(array $racineLoaders, array $paths = []) {
         $this->racineLoaders = &$racineLoaders;
-        $this->psr_4 = &$psr_4;
+        $this->paths = &$paths;
 
         $this->start_autoload();
     }
@@ -29,8 +30,8 @@ class Autoload
         }  
 
         if (!$find) {
-            if (key_exists($className, $this->psr_4)) {
-                require $this->psr_4[$className].'.php';
+            if (key_exists($className, $this->paths)) {
+                require $this->paths[$className].'.php';
             } else {
                 foreach($racineLoaders as $racine) {
                     echo "<br>impossible de trouver la classe ".$racine.$className.'.php<br/>';

@@ -8,8 +8,8 @@ $src = [
     LIB, RACINE, CONTROLER
 ];
 
-$psr_4 = [
+$paths = [
 
 ];
 
-$autolaod = new Autoload($src, $psr_4);
+$autolaod = new Autoload($src, $paths);
