@@ -24,7 +24,7 @@ Par exemple de faciliter l'upload où le download
 Base Entity, Manager, Contrôler, Router,etc,
 
 > Une classe fetch permettant d'effectuer des requêtes
-Ciel en get ou en post et peut envoyer des fichiers.
+Curl en get ou en post et peut envoyer des fichiers.
 
 Etc
 
